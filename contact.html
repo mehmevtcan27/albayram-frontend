@@ -3,37 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <title>İletişim</title>
-  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <h1>İletişim</h1>
-  <form id="contactForm">
-    <input name="name" placeholder="Ad Soyad" required><br>
-    <input name="email" placeholder="E-posta" required><br>
-    <textarea name="message" placeholder="Mesajınız" required></textarea><br>
-    <button type="submit">Gönder</button>
-  </form>
-  <p id="result"></p>
-  <script>
-    document.getElementById("contactForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const data = {
-        name: this.name.value,
-        email: this.email.value,
-        message: this.message.value
-      };
-      fetch("https://albayram-backend.onrender.com/api/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      })
-      .then(res => res.json())
-      .then(result => {
-        document.getElementById("result").textContent = "Mesaj gönderildi!";
-        this.reset();
-      })
-      .catch(() => document.getElementById("result").textContent = "Hata oluştu.");
-    });
-  </script>
+<body class="bg-gray-50 text-gray-900">
+  <nav class="bg-white shadow p-4 flex gap-4">
+    <a href="index.html" class="text-blue-600 font-semibold">Ana Sayfa</a>
+    <a href="employers.html" class="text-blue-600">İşverenler</a>
+    <a href="events.html" class="text-blue-600">Etkinlikler</a>
+    <a href="contact.html" class="text-blue-600">İletişim</a>
+    <a href="admin.html" class="text-blue-600">Admin</a>
+  </nav>
+  <div class="max-w-2xl mx-auto mt-10">
+    <h1 class="text-2xl font-bold">İletişim</h1>
+    <p class="mt-2">Bu sayfa yakında içerikle doldurulacak.</p>
+  </div>
 </body>
 </html>

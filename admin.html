@@ -2,37 +2,20 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Admin Giriş</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Admin Panel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <h1>Admin Panel</h1>
-  <form id="loginForm">
-    <input name="username" placeholder="Kullanıcı Adı" required><br>
-    <input name="password" type="password" placeholder="Şifre" required><br>
-    <button type="submit">Giriş Yap</button>
-  </form>
-  <div id="adminData" style="margin-top: 20px;"></div>
-  <script>
-    document.getElementById("loginForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      fetch("https://albayram-backend.onrender.com/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: this.username.value,
-          password: this.password.value
-        })
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.token) {
-          document.getElementById("adminData").innerHTML = "<p>Giriş başarılı. Token alındı ✅</p>";
-        } else {
-          document.getElementById("adminData").innerHTML = "<p>Giriş başarısız ❌</p>";
-        }
-      });
-    });
-  </script>
+<body class="bg-gray-50 text-gray-900">
+  <nav class="bg-white shadow p-4 flex gap-4">
+    <a href="index.html" class="text-blue-600 font-semibold">Ana Sayfa</a>
+    <a href="employers.html" class="text-blue-600">İşverenler</a>
+    <a href="events.html" class="text-blue-600">Etkinlikler</a>
+    <a href="contact.html" class="text-blue-600">İletişim</a>
+    <a href="admin.html" class="text-blue-600">Admin</a>
+  </nav>
+  <div class="max-w-2xl mx-auto mt-10">
+    <h1 class="text-2xl font-bold">Admin Panel</h1>
+    <p class="mt-2">Bu sayfa yakında içerikle doldurulacak.</p>
+  </div>
 </body>
 </html>
