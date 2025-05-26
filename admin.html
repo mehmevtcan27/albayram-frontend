@@ -1,2 +1,38 @@
-<html><head><title>Admin Panel</title><link rel="stylesheet" href="style.css"></head><body>
-<h1>Admin Panel</h1></body></html>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Giriş</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Admin Panel</h1>
+  <form id="loginForm">
+    <input name="username" placeholder="Kullanıcı Adı" required><br>
+    <input name="password" type="password" placeholder="Şifre" required><br>
+    <button type="submit">Giriş Yap</button>
+  </form>
+  <div id="adminData" style="margin-top: 20px;"></div>
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      fetch("https://albayram-backend.onrender.com/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: this.username.value,
+          password: this.password.value
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.token) {
+          document.getElementById("adminData").innerHTML = "<p>Giriş başarılı. Token alındı ✅</p>";
+        } else {
+          document.getElementById("adminData").innerHTML = "<p>Giriş başarısız ❌</p>";
+        }
+      });
+    });
+  </script>
+</body>
+</html>

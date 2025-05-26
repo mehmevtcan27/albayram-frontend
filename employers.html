@@ -1,15 +1,24 @@
-<html><head><title>İşverenler</title><link rel="stylesheet" href="style.css"></head><body>
-<h1>İşverenler</h1><ul id="employerList"></ul>
-<script>
-fetch("https://albayram-backend.onrender.com/api/employers")
-  .then(res => res.json())
-  .then(data => {
-    const ul = document.getElementById("employerList");
-    data.forEach(emp => {
-      const li = document.createElement("li");
-      li.textContent = emp.name + " - " + emp.description;
-      ul.appendChild(li);
-    });
-  });
-</script>
-</body></html>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>İşverenler</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>İşverenler</h1>
+  <ul id="employerList"></ul>
+  <script>
+    fetch("https://albayram-backend.onrender.com/api/employers")
+      .then(res => res.json())
+      .then(data => {
+        const ul = document.getElementById("employerList");
+        data.forEach(emp => {
+          const li = document.createElement("li");
+          li.textContent = emp.name + " - " + emp.description;
+          ul.appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>

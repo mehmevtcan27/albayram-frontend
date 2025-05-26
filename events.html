@@ -1,2 +1,24 @@
-<html><head><title>Etkinlikler</title><link rel="stylesheet" href="style.css"></head><body>
-<h1>Etkinlikler</h1></body></html>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Etkinlikler</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Etkinlikler</h1>
+  <ul id="eventList"></ul>
+  <script>
+    fetch("https://albayram-backend.onrender.com/api/events")
+      .then(res => res.json())
+      .then(data => {
+        const ul = document.getElementById("eventList");
+        data.forEach(event => {
+          const li = document.createElement("li");
+          li.textContent = event.title + " - " + event.date;
+          ul.appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>

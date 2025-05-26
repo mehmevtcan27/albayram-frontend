@@ -1,3 +1,39 @@
-<html><head><title>İletişim</title><link rel="stylesheet" href="style.css"></head><body>
-<h1>İletişim</h1><form method="post">
-<input placeholder="Ad Soyad"><br><input placeholder="E-posta"><br><textarea placeholder="Mesaj"></textarea><br><button>Gönder</button></form></body></html>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>İletişim</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>İletişim</h1>
+  <form id="contactForm">
+    <input name="name" placeholder="Ad Soyad" required><br>
+    <input name="email" placeholder="E-posta" required><br>
+    <textarea name="message" placeholder="Mesajınız" required></textarea><br>
+    <button type="submit">Gönder</button>
+  </form>
+  <p id="result"></p>
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const data = {
+        name: this.name.value,
+        email: this.email.value,
+        message: this.message.value
+      };
+      fetch("https://albayram-backend.onrender.com/api/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      })
+      .then(res => res.json())
+      .then(result => {
+        document.getElementById("result").textContent = "Mesaj gönderildi!";
+        this.reset();
+      })
+      .catch(() => document.getElementById("result").textContent = "Hata oluştu.");
+    });
+  </script>
+</body>
+</html>
