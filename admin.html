@@ -1,21 +1,73 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Admin Panel</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 text-gray-900">
-  <nav class="bg-white shadow p-4 flex gap-4">
-    <a href="index.html" class="text-blue-600 font-semibold">Ana Sayfa</a>
-    <a href="employers.html" class="text-blue-600">İşverenler</a>
-    <a href="events.html" class="text-blue-600">Etkinlikler</a>
-    <a href="contact.html" class="text-blue-600">İletişim</a>
-    <a href="admin.html" class="text-blue-600">Admin</a>
-  </nav>
-  <div class="max-w-2xl mx-auto mt-10">
-    <h1 class="text-2xl font-bold">Admin Panel</h1>
-    <p class="mt-2">Bu sayfa yakında içerikle doldurulacak.</p>
+<body class="bg-gray-100 text-gray-800">
+  <div class="max-w-md mx-auto mt-20 bg-white shadow-lg rounded-lg p-6">
+    <h1 class="text-2xl font-bold mb-4">Admin Giriş</h1>
+    <form id="loginForm" class="space-y-4">
+      <input name="username" placeholder="Kullanıcı Adı" required class="w-full border p-2 rounded" />
+      <input name="password" type="password" placeholder="Şifre" required class="w-full border p-2 rounded" />
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Giriş Yap</button>
+    </form>
+    <p id="loginStatus" class="mt-4 text-sm"></p>
   </div>
+
+  <div class="max-w-3xl mx-auto mt-10 p-6 bg-white shadow rounded hidden" id="messagePanel">
+    <h2 class="text-xl font-bold mb-4">Gelen Mesajlar</h2>
+    <ul id="messages" class="space-y-2"></ul>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById("loginForm");
+    const status = document.getElementById("loginStatus");
+    const panel = document.getElementById("messagePanel");
+    const msgList = document.getElementById("messages");
+
+    loginForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const res = await fetch("https://albayram-backend.onrender.com/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: loginForm.username.value,
+          password: loginForm.password.value
+        })
+      });
+      const data = await res.json();
+      if (data.token) {
+        status.textContent = "✅ Giriş başarılı. Mesajlar yükleniyor...";
+        getMessages(data.token);
+      } else {
+        status.textContent = "❌ Giriş başarısız.";
+      }
+    });
+
+    async function getMessages(token) {
+      const res = await fetch("https://albayram-backend.onrender.com/api/messages", {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+      const messages = await res.json();
+      if (messages.length > 0) {
+        panel.classList.remove("hidden");
+        msgList.innerHTML = "";
+        messages.forEach(msg => {
+          const li = document.createElement("li");
+          li.innerHTML = `<div class="border p-3 rounded">
+            <p><strong>${msg.name}</strong> (${msg.email})</p>
+            <p class="mt-1">${msg.message}</p>
+          </div>`;
+          msgList.appendChild(li);
+        });
+      } else {
+        msgList.innerHTML = "<li>Hiç mesaj yok.</li>";
+      }
+    }
+  </script>
 </body>
 </html>
