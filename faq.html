@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <title>Albayram</title>
+  <title>Faq | Albayram</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -18,10 +18,16 @@
       <a href="blogs.html" class="hover:underline">Blog</a>
       <a href="discounts.html" class="hover:underline">İndirimler</a>
       <a href="contact.html" class="hover:underline">İletişim</a>
+      <a href="about.html" class="hover:underline">Hakkımızda</a>
+      <a href="gallery.html" class="hover:underline">Galeri</a>
+      <a href="team.html" class="hover:underline">Aile</a>
+      <a href="faq.html" class="hover:underline">SSS</a>
+      <a href="legal.html" class="hover:underline">Yasal</a>
       <a href="admin.html" class="hover:underline">Admin</a>
     </nav>
   </div>
 </header>
 
-<main class='pt-24 max-w-4xl mx-auto px-4'><h2 class='text-2xl font-semibold mb-4'>İşverenler</h2><ul id='employerList' class='space-y-2'></ul></main><script>fetch('https://albayram-backend.onrender.com/api/employers').then(r=>r.json()).then(d=>{const ul=document.getElementById('employerList');d.forEach(i=>{const li=document.createElement('li');li.className='border p-3 rounded';li.innerHTML=`<strong>${i.name}</strong><p>${i.description}</p>`;ul.appendChild(li);});});</script>
-</body></html>
+<main class='pt-24 max-w-4xl mx-auto px-4'><h2 class='text-3xl font-semibold mb-4'>Sıkça Sorulan Sorular</h2><ul class='space-y-4'><li><strong>Soru:</strong> Albayram ailesine nasıl ulaşabilirim?<br><strong>Cevap:</strong> İletişim sayfasını kullanabilirsiniz.</li><li><strong>Soru:</strong> İşverenlerle nasıl iletişime geçerim?<br><strong>Cevap:</strong> İlgili işveren profillerinden bilgi alabilirsiniz.</li></ul></main>
+</body>
+</html>

@@ -1,19 +1,27 @@
 <!DOCTYPE html>
 <html lang="tr">
-<head><meta charset="UTF-8"><title>Blog</title><script src="https://cdn.tailwindcss.com"></script></head>
-<body class="bg-gray-50 text-gray-800">
-<nav class="bg-white shadow p-4 flex gap-4"><a href="index.html" class="text-blue-600">Ana Sayfa</a></nav>
-<main class="max-w-3xl mx-auto mt-10 p-4 bg-white rounded shadow">
-<h1 class="text-2xl font-bold mb-4">Blog Yazıları</h1><div id="blogList" class="space-y-4"></div>
-</main>
-<script>
-fetch("https://albayram-backend.onrender.com/api/blogs").then(r=>r.json()).then(data=>{
-const container=document.getElementById("blogList");
-data.forEach(b=>{
-const div=document.createElement("div");
-div.className="border p-3 rounded";
-div.innerHTML=`<strong>${b.title}</strong><p>${b.content}</p><small>${b.date}</small>`;
-container.appendChild(div);
-});});
-</script>
+<head>
+  <meta charset="UTF-8" />
+  <title>Albayram</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-black">
+
+<header class="fixed top-0 left-0 right-0 bg-white shadow z-50">
+  <div class="max-w-7xl mx-auto p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold">ALBAYRAM</h1>
+    <nav class="space-x-4 text-sm">
+      <a href="index.html" class="hover:underline">Ana Sayfa</a>
+      <a href="employers.html" class="hover:underline">İşverenler</a>
+      <a href="events.html" class="hover:underline">Etkinlikler</a>
+      <a href="blogs.html" class="hover:underline">Blog</a>
+      <a href="discounts.html" class="hover:underline">İndirimler</a>
+      <a href="contact.html" class="hover:underline">İletişim</a>
+      <a href="admin.html" class="hover:underline">Admin</a>
+    </nav>
+  </div>
+</header>
+
+<main class='pt-24 max-w-4xl mx-auto px-4'><h2 class='text-2xl font-semibold mb-4'>Bloglar</h2><div id='blogList' class='space-y-4'></div></main><script>fetch('https://albayram-backend.onrender.com/api/blogs').then(r=>r.json()).then(d=>{const div=document.getElementById('blogList');d.forEach(i=>{const el=document.createElement('div');el.className='border p-3 rounded';el.innerHTML=`<h3 class='font-bold'>${i.title}</h3><p>${i.content}</p><small>${i.date}</small>`;div.appendChild(el);});});</script>
 </body></html>
