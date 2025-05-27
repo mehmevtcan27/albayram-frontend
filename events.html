@@ -1,3 +1,19 @@
-<!-- Etkinlik kartlarını API'den çeken sayfa -->
-<script src='https://cdn.tailwindcss.com'></script>
-<body class='p-6'><h1 class='text-xl'>Etkinlik kartlarını API'den çeken sayfa</h1></body>
+<!DOCTYPE html>
+<html lang="tr">
+<head><meta charset="UTF-8"><title>Etkinlikler</title><script src="https://cdn.tailwindcss.com"></script></head>
+<body class="bg-gray-50 text-gray-800">
+<nav class="bg-white shadow p-4 flex gap-4"><a href="index.html" class="text-blue-600">Ana Sayfa</a></nav>
+<main class="max-w-3xl mx-auto mt-10 p-4 bg-white rounded shadow">
+<h1 class="text-2xl font-bold mb-4">Etkinlikler</h1><ul id="eventList" class="space-y-2"></ul>
+</main>
+<script>
+fetch("https://albayram-backend.onrender.com/api/events").then(r=>r.json()).then(data=>{
+const ul=document.getElementById("eventList");
+data.forEach(e=>{
+const li=document.createElement("li");
+li.className="border p-3 rounded";
+li.innerHTML=`<strong>${e.title}</strong><br>${e.date}<br>${e.description}`;
+ul.appendChild(li);
+});});
+</script>
+</body></html>

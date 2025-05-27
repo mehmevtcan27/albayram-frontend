@@ -1,3 +1,40 @@
-<!-- Admin login + JWT token + mesaj çekme paneli -->
-<script src='https://cdn.tailwindcss.com'></script>
-<body class='p-6'><h1 class='text-xl'>Admin login + JWT token + mesaj çekme paneli</h1></body>
+<!DOCTYPE html>
+<html lang="tr">
+<head><meta charset="UTF-8"><title>Admin</title><script src="https://cdn.tailwindcss.com"></script></head>
+<body class="bg-gray-100 text-gray-800">
+<main class="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
+<h1 class="text-xl font-bold mb-4">Admin Giriş</h1>
+<form id="loginForm" class="space-y-4">
+<input name="username" placeholder="Kullanıcı Adı" required class="w-full border p-2 rounded" />
+<input name="password" type="password" placeholder="Şifre" required class="w-full border p-2 rounded" />
+<button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Giriş Yap</button>
+</form>
+<div id="messageList" class="mt-6 space-y-2 hidden"></div>
+</main>
+<script>
+document.getElementById("loginForm").addEventListener("submit", async function(e){
+e.preventDefault();
+const form = e.target;
+const res = await fetch("https://albayram-backend.onrender.com/api/auth/login", {
+method: "POST",
+headers: { "Content-Type": "application/json" },
+body: JSON.stringify({
+username: form.username.value,
+password: form.password.value
+})
+});
+const data = await res.json();
+if(data.token){
+const msgRes = await fetch("https://albayram-backend.onrender.com/api/messages", {
+headers: { Authorization: `Bearer ${data.token}` }
+});
+const messages = await msgRes.json();
+const list = document.getElementById("messageList");
+list.classList.remove("hidden");
+list.innerHTML = messages.map(m => `<div class="border p-3 rounded"><strong>${m.name}</strong><p>${m.message}</p></div>`).join("");
+} else {
+alert("Giriş başarısız");
+}
+});
+</script>
+</body></html>
